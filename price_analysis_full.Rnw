@@ -21,9 +21,13 @@
 \usepackage{setspace}
 \usepackage{rotating}
 \usepackage{bm}
-\doublespacing
+\usepackage{etoolbox}
+\usepackage{lipsum}
+\AtBeginEnvironment{tabular}{\doublespacing}
+%\doublespacing
 \geometry{verbose,tmargin=2cm,bmargin=2cm,lmargin=3cm,rmargin=3cm}
 \begin{document}
+\begin{spacing}{1.5}
 \SweaveOpts{concordance=TRUE}
 
 \section*{Impact on world market prices}
@@ -34,7 +38,10 @@ Not only is it common belief that the Russian embargo has caused a price slump o
 "\emph{On 7 August 2014, Russia introduced a ban on imports of certain products from the Union to Russia, including milk and milk products. This ban resulted in market disturbances with significant price falls due to the fact that an important export market has suddenly become unavailable.} \cite{Commission2015}. \hl{Perhaps it would be useful with a timeline of events, including EU support schemes?}
 
 \subsection*{Descriptive analysis}
-Before going into a formal statistical analysis of the ban's impact on dairy and pork prices, we discuss whether the raw data support such a claim. Figure \ref{fig:pork_prices_us} shows a monthly pork price since January 2010. The price is that of US pork, specifically 51-52 \% lean Hogs (as published by the IMF), which is considered the leading export benchmark price. The first dashed vertical line indicates the ban on EU pork set in late January 2014, in connection with the outbreak of African Swine Fever (ASF) in Poland and Lithuania. The second dashed vertical line indicates the embargo set on August 8th same year, on food products from a number of Western countries\footnote{The two lines correspond to the months of January and July, 2014, just prior to the bans starting from February and August, 2014, respectively.}. As can be seen, the first ban coincided with an increase in the price pork which lasted until July 2014, the month just prior to the second ban. During the period from January to July the pork price increased by no less than 63 percent to a level not seen since the mid-1990s. From the peak in July 2014, just prior to the second ban, to the trough in April 2015 the pork price fell by 53 percent. The perfect correspondence between these major turning points in the price trend suggests that the Russian pork trade intervention did in fact have an effect on world market pork prices.
+Before going into a formal statistical analysis of the ban's impact on dairy and pork prices, we discuss whether the raw data support such a claim.
+
+\subsubsection*{Pork prices}
+Figure \ref{fig:pork_prices_us} shows a monthly pork price since January 2010. The price is that of US pork, specifically 51-52 \% lean Hogs (as published by the IMF), which is considered the leading export benchmark price. The first dashed vertical line indicates the ban on EU pork set in late January 2014, in connection with the outbreak of African Swine Fever (ASF) in Poland and Lithuania. The second dashed vertical line indicates the embargo set on August 8th same year, on food products from a number of Western countries\footnote{The two lines correspond to the months of January and July, 2014, just prior to the bans starting from February and August, 2014, respectively.}. As can be seen, the first ban coincided with an increase in the price pork which lasted until July 2014, the month just prior to the second ban. During the period from January to July the pork price increased by no less than 63 percent to a level not seen since the mid-1990s. From the peak in July 2014, just prior to the second ban, to the trough in April 2015 the pork price fell by 53 percent. The perfect correspondence between these major turning points in the price trend suggests that the Russian pork trade intervention did in fact have an effect on world market pork prices.
 
 <<pork_prices_us, echo=FALSE, fig=TRUE, include=FALSE, height=5, width=8>>=
 
@@ -73,23 +80,23 @@ pork_plot_dk
 
 Figure \ref{fig:pork_prices_dk} shows the Danish price of pork also since January 2010. As can be seen, it is much less obvious, than in the US case, that the interventions, indicated by vertical dashed lines, should have had an effect on Danish pork prices. First, Danish pork prices had been falling since October 2013, three months before the January import ban. Secondly, the Danish pork prices actually increased from March to June and then started to fall again in July, one moth before the August embargo. These facts do not, however, rule out apriori that the Russian trade interventions did not have an effect on Danish pork prices as well. It might be the case, for example, that the Danish pork prices would not have decreased as much as they did between January and March had there been no ban. Regarding the price increase from April to June, that might be the impact of the storage subsidies and, finally, the apparently one month early price fall in July, might be purely coincidental resulting from supply and/or demand shocks unrelated to Russian trade.
 
-<<prices_fao, echo=FALSE, fig=TRUE, include=FALSE, height=5, width=8>>=
+\subsubsection*{Milk prices}
 
-load("pork_dairy_plot_fao")
-pork_dairy_plot_fao
+
+<<milk_prices, echo=FALSE, fig=TRUE, include=FALSE, height=5, width=8>>=
+
+load("milk_plot")
+milk_plot
 
 @
 
 \begin{figure}[t]
 \begin{center}
-\includegraphics[width=1\textwidth]{price_analysis_full-prices_fao.pdf}
-\caption{Price indexes of dairy and pig meat normalized with respect to January 2010. Source: FAO.}
-\label{fig:prices_fao}
+\includegraphics[width=1\textwidth]{price_analysis_full-milk_prices.pdf}
+\caption{Raw cow milk, Euro per 100 kilo Source: EU Milk Market Observatory}
+\label{fig:milk_prices}
 \end{center}
 \end{figure}
-
-The solid line in figure \ref{fig:prices_fao} represents the FAO meat price index. It is an average pigmeat prices from the US, Brazil and Germany, weighted by their export shares. As can be seen, it borrows features from the US as well as the Danish price series (Danish and German pig prices are highly correlated). In particular, the turning points do not match the months of the Russian interventions exactly. The second series represented by a dashed line in figure \ref{fig:prices_fao} is the FAO dairy price index, which is an export share weighted average of various butter, milk powder, cheese and casein price quotations. It peaked in February 2014 and has been on a downward trend since. The impact of the August embargo is not clear just by eyeballing the dairy price data. 
-In the statistical analysis below, we analyze the impact of the Russian trade interventions on the FAO pork and dairy indexes as well as on the US pork price supplied by the IMF.
 
 \subsection*{Statistical model of the price impacts}
 In a time series context, the classic approach to the analysis of policy interventions such as trade bans is based on the Box-Jenkins ARIMA methodology. The basic idea behind this approach is to filter out any trends and cycles through various transformations of the data and then to regress the ``pre-whitened'' time series on a set of intervention dummies \citep[see][]{Box1975, Box2011}.
@@ -120,7 +127,7 @@ In the third step the (Monte Carlo) distribution of the regression component par
 \[
 \gamma\sim\Pi_{k=1}^{K}\pi_{k}^{\gamma_{k}}(1-\pi_{k})^{1-\gamma_{k}},
 \]
-where we, for simplicity, assume that each variable have fifty percent chance of being included in the regression, i.e. $\pi_{k}=0.5$. Conditional on $\gamma_{k}=1$ the prior distribution of $\beta_{k}$, i.e. the ``slab'' component of the spike-and-slab prior, is assumed to be Gaussian with mean prior zero and a large variance. In summary, the spike component of the spike-and-slab prior refers the probability of a coefficient being nonzero, whereas the slab component is the diffuse prior determining the range of values which $\beta_{k}$ can likely take \citep{Varian2014}. The algorithm proceeds by drawing $\gamma$ from its prior distribution generating a list of variables to be included in the model. Next, the it draws a set of prior coefficients for the included regressors and combines them with their likelihood such that the posterior distribution of $\beta$ and $\sigma_{\epsilon}^{2}$, conditional on $\gamma$, is obtained. The MCMC sampling scheme readily provides the posterior distribution of $\gamma$ is readily obtained and these inclusion probabilies play an important role when model uncertainty is assessed. For further details on the MCMC algorithm and the spike-and-slab prior in particular, please consult the  \cite{Scott2014} paper and the references therein.
+where we, for simplicity, assume that each variable have fifty percent chance of being included in the regression, i.e. $\pi_{k}=0.5$. Conditional on $\gamma_{k}=1$ the prior distribution of $\beta_{k}$, i.e. the ``slab'' component of the spike-and-slab prior, is assumed to be Gaussian with mean prior zero and a large variance. In summary, the spike component of the spike-and-slab prior refers the probability of a coefficient being nonzero, whereas the slab component is the diffuse prior determining the range of values which $\beta_{k}$ can likely take \citep{Varian2014}. The algorithm proceeds by drawing $\gamma$ from its prior distribution generating a list of variables to be included in the model. Next, it draws a set of prior coefficients for the included regressors and combines them with their likelihood such that the posterior distribution of $\beta$ and $\sigma_{\epsilon}^{2}$, conditional on $\gamma$, is obtained. In addition, the MCMC sampling scheme provides the posterior distribution of $\gamma$ and these marginal inclusion probabilies play an important role when model uncertainty is assessed. For further details on the MCMC algorithm and the spike-and-slab prior in particular, please consult the  \cite{Scott2014} paper and the references therein.
 
 \subsection*{Model results}
 Table \ref{tab:imp_est} summarizes the results from various model specifications.
@@ -128,127 +135,91 @@ Table \ref{tab:imp_est} summarizes the results from various model specifications
 <<echo=FALSE>>=
 res = load("bsts_results.Rda")
 
-m_jan = cbind(results[[1]]$coefficients["intjan",1],
-              results[[2]]$coefficients["intjan",1],
+m_jan = cbind(results[[1]]$coefficients["xjan",1],
+              results[[2]]$coefficients["xjan",1],
               results[[3]]$coefficients["xjan",1],
-              results[[4]]$coefficients["intjan",1],
-              results[[5]]$coefficients["intjan",1],
+              results[[4]]$coefficients["xjan",1],
+              results[[5]]$coefficients["xjan",1],
               results[[6]]$coefficients["xjan",1])
 
-m_aug = cbind(results[[1]]$coefficients["intaug",1],
-              results[[2]]$coefficients["intaug",1],
+m_aug = cbind(results[[1]]$coefficients["xaug",1],
+              results[[2]]$coefficients["xaug",1],
               results[[3]]$coefficients["xaug",1],
-              results[[4]]$coefficients["intaug",1],
-              results[[5]]$coefficients["intaug",1],
-              results[[6]]$coefficients["xaug",1])
+              results[[4]]$coefficients["xaug",1],
+              results[[5]]$coefficients["xaug",1],
+              results[[6]]$coefficients["xaug",1],
+              results[[7]]$coefficients["xint",1],
+              results[[8]]$coefficients["xint",1],
+              results[[9]]$coefficients["xint[-1]",1])
 
-sd_jan = cbind(results[[1]]$coefficients["intjan",2],
-               results[[2]]$coefficients["intjan",2],
+sd_jan = cbind(results[[1]]$coefficients["xjan",2],
+               results[[2]]$coefficients["xjan",2],
                results[[3]]$coefficients["xjan",2],
-               results[[4]]$coefficients["intjan",2],
-               results[[5]]$coefficients["intjan",2],
+               results[[4]]$coefficients["xjan",2],
+               results[[5]]$coefficients["xjan",2],
                results[[6]]$coefficients["xjan",2])
 
-sd_aug = cbind(results[[1]]$coefficients["intaug",2],
-               results[[2]]$coefficients["intaug",2],
+sd_aug = cbind(results[[1]]$coefficients["xaug",2],
+               results[[2]]$coefficients["xaug",2],
                results[[3]]$coefficients["xaug",2],
-               results[[4]]$coefficients["intaug",2],
-               results[[5]]$coefficients["intaug",2],
-               results[[6]]$coefficients["xaug",2])
+               results[[4]]$coefficients["xaug",2],
+               results[[5]]$coefficients["xaug",2],
+               results[[6]]$coefficients["xaug",2],
+               results[[7]]$coefficients["xint",2],
+               results[[8]]$coefficients["xint",2],
+               results[[9]]$coefficients["xint[-1]",2])
 
-mi_jan = cbind(results[[1]]$coefficients["intjan",3],
-               results[[2]]$coefficients["intjan",3],
-               results[[3]]$coefficients["xjan",3],
-               results[[4]]$coefficients["intjan",3],
-               results[[5]]$coefficients["intjan",3],
-               results[[6]]$coefficients["xjan",3])
+res.sd = cbind(results[[1]]$residual.sd,
+               results[[2]]$residual.sd,
+               results[[3]]$residual.sd,
+               results[[4]]$residual.sd,
+               results[[5]]$residual.sd,
+               results[[6]]$residual.sd,
+               results[[7]]$residual.sd,
+               results[[8]]$residual.sd,
+               results[[9]]$residual.sd)
 
-mi_aug = cbind(results[[1]]$coefficients["intaug",3],
-               results[[2]]$coefficients["intaug",3],
-               results[[3]]$coefficients["xaug",3],
-               results[[4]]$coefficients["intaug",3],
-               results[[5]]$coefficients["intaug",3],
-               results[[6]]$coefficients["xaug",3])
-
-sdi_jan = cbind(results[[1]]$coefficients["intjan",4],
-               results[[2]]$coefficients["intjan",4],
-               results[[3]]$coefficients["xjan",4],
-               results[[4]]$coefficients["intjan",4],
-               results[[5]]$coefficients["intjan",4],
-               results[[6]]$coefficients["xjan",4])
-
-sdi_aug = cbind(results[[1]]$coefficients["intaug",4],
-               results[[2]]$coefficients["intaug",4],
-               results[[3]]$coefficients["xaug",4],
-               results[[4]]$coefficients["intaug",4],
-               results[[5]]$coefficients["intaug",4],
-               results[[6]]$coefficients["xaug",4])
-
-ip_jan = cbind(results[[1]]$coefficients["intjan",5],
-               results[[2]]$coefficients["intjan",5],
-               results[[3]]$coefficients["xjan",5],
-               results[[4]]$coefficients["intjan",5],
-               results[[5]]$coefficients["intjan",5],
-               results[[6]]$coefficients["xjan",5])
-
-ip_aug = cbind(results[[1]]$coefficients["intaug",5],
-               results[[2]]$coefficients["intaug",5],
-               results[[3]]$coefficients["xaug",5],
-               results[[4]]$coefficients["intaug",5],
-               results[[5]]$coefficients["intaug",5],
-               results[[6]]$coefficients["xaug",5])
+pr.sd = cbind(results[[1]]$prediction.sd,
+               results[[2]]$prediction.sd,
+               results[[3]]$prediction.sd,
+               results[[4]]$prediction.sd,
+               results[[5]]$prediction.sd,
+               results[[6]]$prediction.sd,
+               results[[7]]$prediction.sd,
+               results[[8]]$prediction.sd,
+               results[[9]]$prediction.sd)
 @
 
-\begin{table}
-\caption{Estimated pork price impacts of the Russian trade interventions}
+\lipsum[1]
+\begin{table}[t]
+\caption{Estimated price impacts of the Russian trade interventions}
 \label{tab:imp_est}
 \begin{center}
-\begin{tabular}{clccccc}
+\begin{tabular}{cccccccc}
 \hline 
- &  & mean & sd & mean.inc & sd.inc & inc.prob\tabularnewline
+ &  & mean & sd & mean & sd & res.sd & pred.sd\tabularnewline
+\cline{3-8} 
+ &  & \multicolumn{2}{c}{January ban} & \multicolumn{2}{c}{August ban} &  & \tabularnewline
 \hline 
 \hline 
- &  & \multicolumn{5}{c}{January ban}\tabularnewline
-\multirow{7}{*}{\begin{turn}{-90}
+\multirow{3}{*}{\begin{turn}{-90}
 US pork
-\end{turn}} & level + seas & \Sexpr{round(m_jan[1],2)} & \Sexpr{round(sd_jan[1],2)} & \Sexpr{round(mi_jan[1],2)} & \Sexpr{round(sdi_jan[1],2)} & \Sexpr{round(ip_jan[1],2)} \tabularnewline
- & trend + seas & \Sexpr{round(m_jan[2],2)} & \Sexpr{round(sd_jan[2],2)} & \Sexpr{round(mi_jan[2],2)} & \Sexpr{round(sdi_jan[2],2)} & \Sexpr{round(ip_jan[2],2)} \tabularnewline
- & trend + seas + ctrl & \Sexpr{round(m_jan[3],2)} & \Sexpr{round(sd_jan[3],2)} & \Sexpr{round(mi_jan[3],2)} & \Sexpr{round(sdi_jan[3],2)} & \Sexpr{round(ip_jan[3],2)} \tabularnewline
-
- &  & \multicolumn{5}{c}{August ban}\tabularnewline
- & level + seas & \Sexpr{round(m_aug[1],2)} & \Sexpr{round(sd_aug[1],2)} & \Sexpr{round(mi_aug[1],2)} & \Sexpr{round(sdi_aug[1],2)} & \Sexpr{round(ip_aug[1],2)} \tabularnewline
- & trend + seas & \Sexpr{round(m_aug[2],2)} & \Sexpr{round(sd_aug[2],2)} & \Sexpr{round(mi_aug[2],2)} & \Sexpr{round(sdi_aug[2],2)} & \Sexpr{round(ip_aug[2],2)} \tabularnewline
- & trend + seas + ctrl & \Sexpr{round(m_aug[3],2)} & \Sexpr{round(sd_aug[3],2)} & \Sexpr{round(mi_aug[3],2)} & \Sexpr{round(sdi_aug[3],2)} & \Sexpr{round(ip_aug[3],2)} \tabularnewline
+\end{turn}} & level + seas  & \Sexpr{round(m_jan[1],3)} & \Sexpr{round(sd_jan[1],3)} & \Sexpr{round(m_aug[1],3)} & \Sexpr{round(sd_aug[1],3)} & \Sexpr{round(res.sd[1],3)} & \Sexpr{round(pr.sd[1],3)} \tabularnewline
+ & trend + seas & \Sexpr{round(m_jan[2],3)} & \Sexpr{round(sd_jan[2],3)} & \Sexpr{round(m_aug[2],3)} & \Sexpr{round(sd_aug[2],3)}  &  \Sexpr{round(res.sd[2],3)} & \Sexpr{round(pr.sd[2],3)} \tabularnewline
+ & trend + seas + ctrl & \Sexpr{round(m_jan[3],3)} & \Sexpr{round(sd_jan[3],3)} & \Sexpr{round(m_aug[3],3)} & \Sexpr{round(sd_aug[3],3)} &  \Sexpr{round(res.sd[3],3)} & \Sexpr{round(pr.sd[3],3)} \tabularnewline
 \hline 
- 
- &  & \multicolumn{5}{c}{January ban}\tabularnewline
-\multirow{7}{*}{\begin{turn}{-90}
+\multirow{3}{*}{\begin{turn}{-90}
 DK pork
-\end{turn}} 
- & level + seas & \Sexpr{round(m_jan[4],2)} & \Sexpr{round(sd_jan[4],2)} & \Sexpr{round(mi_jan[4],2)} & \Sexpr{round(sdi_jan[4],2)} & \Sexpr{round(ip_jan[4],2)} \tabularnewline
- & trend + seas & \Sexpr{round(m_jan[5],3)} & \Sexpr{round(sd_jan[5],2)} & \Sexpr{round(mi_jan[5],2)} & \Sexpr{round(sdi_jan[5],2)} & \Sexpr{round(ip_jan[5],2)}  \tabularnewline
- & trend + seas + ctrl & \Sexpr{round(m_jan[6],3)} & \Sexpr{round(sd_jan[6],2)} & \Sexpr{round(mi_jan[6],2)} & \Sexpr{round(sdi_jan[6],2)} & \Sexpr{round(ip_jan[6],2)} \tabularnewline
-
- &  & \multicolumn{5}{c}{August ban}\tabularnewline
- & level + seas & \Sexpr{round(m_aug[4],3)} & \Sexpr{round(sd_aug[4],2)} & \Sexpr{round(mi_aug[4],2)} & \Sexpr{round(sdi_aug[4],2)} & \Sexpr{round(ip_aug[4],2)} \tabularnewline
- & trend + seas & \Sexpr{round(m_aug[5],3)} & \Sexpr{round(sd_aug[5],2)} & \Sexpr{round(mi_aug[5],2)} & \Sexpr{round(sdi_aug[5],2)} & \Sexpr{round(ip_aug[5],2)} \tabularnewline
- & trend + seas + ctrl & \Sexpr{round(m_aug[6],3)} & \Sexpr{round(sd_aug[6],2)} & \Sexpr{round(mi_aug[6],2)} & \Sexpr{round(sdi_aug[6],2)} & \Sexpr{round(ip_aug[6],2)} \tabularnewline
+\end{turn}} & level + seas  & \Sexpr{round(m_jan[4],3)} & \Sexpr{round(sd_jan[4],3)} & \Sexpr{round(m_aug[4],3)} & \Sexpr{round(sd_aug[4],3)}  &  \Sexpr{round(res.sd[4],3)} & \Sexpr{round(pr.sd[4],3)} \tabularnewline
+ & trend + seas & \Sexpr{round(m_jan[5],3)} & \Sexpr{round(sd_jan[5],3)} & \Sexpr{round(m_aug[5],3)} & \Sexpr{round(sd_aug[5],3)}  &  \Sexpr{round(res.sd[5],3)} & \Sexpr{round(pr.sd[5],3)} \tabularnewline
+ & trend + seas + ctrl & \Sexpr{round(m_jan[6],3)} & \Sexpr{round(sd_jan[6],3)} &  \Sexpr{round(m_aug[6],3)} & \Sexpr{round(sd_aug[6],3)}  &  \Sexpr{round(res.sd[6],3)} & \Sexpr{round(pr.sd[6],3)} \tabularnewline
+\hline 
+\multirow{3}{*}{\begin{turn}{-90}
+DK milk
+\end{turn}} & level + seas  &  &  &  \Sexpr{round(m_aug[7],3)} & \Sexpr{round(sd_aug[7],3)}  &  \Sexpr{round(res.sd[7],3)} & \Sexpr{round(pr.sd[7],3)} \tabularnewline
+ & trend + seas &  &  &  \Sexpr{round(m_aug[8],3)} & \Sexpr{round(sd_aug[8],3)}  &  \Sexpr{round(res.sd[8],3)} & \Sexpr{round(pr.sd[8],3)} \tabularnewline
+ & trend + seas + ctrl &  &  & \Sexpr{round(m_aug[9],3)} & \Sexpr{round(sd_aug[9],3)} & \Sexpr{round(res.sd[9],3)} & \Sexpr{round(pr.sd[9],3)} \tabularnewline
 \hline
-
- &  & \multicolumn{5}{c}{January ban}\tabularnewline
-\multirow{7}{*}{\begin{turn}{-90}
-FAO pork
-\end{turn}} 
- & level + seas & & & & &  \tabularnewline
- & trend + seas & & & & &  \tabularnewline
- & trend + seas + ctrl & & & & & \tabularnewline
-
- &  & \multicolumn{5}{c}{August ban}\tabularnewline
- & level + seas & & & & & \tabularnewline
- & trend + seas & & & & & \tabularnewline
- & trend + seas + ctrl & & & & & \tabularnewline
-\hline
-
 \end{tabular}
 \end{center}
 \end {table}
@@ -257,4 +228,5 @@ FAO pork
 \bibliographystyle{chicago}
 \bibliography{russia_imp_ban}
 
+\end{spacing}
 \end{document}
