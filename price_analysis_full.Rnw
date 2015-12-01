@@ -38,7 +38,7 @@ Not only is it common belief that the Russian embargo has caused a price slump o
 "\emph{On 7 August 2014, Russia introduced a ban on imports of certain products from the Union to Russia, including milk and milk products. This ban resulted in market disturbances with significant price falls due to the fact that an important export market has suddenly become unavailable.} \cite{Commission2015}. \hl{Perhaps it would be useful with a timeline of events, including EU support schemes?}
 
 \subsection*{Descriptive analysis}
-Before going into a formal statistical analysis of the ban's impact on dairy and pork prices, we discuss whether the raw data support such a claim.
+Before we go into a formal statistical analysis of the impact on dairy and pork markets, we discuss whether the raw data support the claim that the Russian interventions reduced prices.
 
 \subsubsection*{Pork prices}
 Figure \ref{fig:pork_prices_us} shows a monthly pork price since January 2010. The price is that of US pork, specifically 51-52 \% lean Hogs (as published by the IMF), which is considered the leading export benchmark price. The first dashed vertical line indicates the ban on EU pork set in late January 2014, in connection with the outbreak of African Swine Fever (ASF) in Poland and Lithuania. The second dashed vertical line indicates the embargo set on August 8th same year, on food products from a number of Western countries\footnote{The two lines correspond to the months of January and July, 2014, just prior to the bans starting from February and August, 2014, respectively.}. As can be seen, the first ban coincided with an increase in the price pork which lasted until July 2014, the month just prior to the second ban. During the period from January to July the pork price increased by no less than 63 percent to a level not seen since the mid-1990s. From the peak in July 2014, just prior to the second ban, to the trough in April 2015 the pork price fell by 53 percent. The perfect correspondence between these major turning points in the price trend suggests that the Russian pork trade intervention did in fact have an effect on world market pork prices.
@@ -58,10 +58,9 @@ pork_plot_us
 \end{center}
 \end{figure}
 
-Assuming for a moment that the initial pork price spike and subsequent downturn are causally related to the coinciding Russian trade interventions, how do we explain the seemingly opposite impacts? That is, why did the US pork price increase following the first ban on pork imports from EU whereas it decreased following the second ban on a number of food producs (including pork) from Western countries? One obvious explanation could be that the first ban only applied to EU - not US pork. The ban on EU produced pork thus increased Russian demand for pork produced elsewhere, the US in particular, which is the world's second largest exporter after EU. This explanation is backed up by US trade data which shows that US pork export to Russia increased substantially between January and and July 2014 from 0 to almost 37,000 pounds. On the other hand, total US pork exports did not increase in this period and imports of pork from some of the EU countries also went up, although not nearly as much as the export to Russia.\footnote{Trade figures are from the USDA-PSD database.}
+Assuming for a moment that the initial pork price spike and subsequent downturn are causally related to the coinciding Russian trade interventions, how do we explain the seemingly opposite impacts? That is, why did the US pork price increase following the first ban on pork imports from EU whereas it decreased following the second ban on a number of food producs (including pork) from Western countries? One obvious explanation could be that the first ban only applied to EU - not US pork. The ban on EU produced pork thus increased Russian demand for pork produced elsewhere, the US in particular, which is the world's second largest exporter after EU. This explanation is backed up by US trade data which shows that US pork export to Russia increased substantially between January and and July 2014. In fact, during the period from March 2013 to March 2014, there was zero export of pork from the US to Russia according to USDA statistics. From April to August the US exported on average of 20 million pounds of pork to Russia with a peak of 37 million pounds in July, a tenth of the US's total pork export that month. On the other hand, total US pork exports did not increase in this period and imports of pork from some of the EU countries also went up, although not nearly as much as the export to Russia.\footnote{Trade figures are from the USDA-PSD database.}
 
 The second intervention was more comprehensive in terms of product and, more importantly, country coverage and also affected the US. This eliminated the excess demand for US pork created by the ban on EU pork and intensified competition in third markets between exporting countries, which would explain why US pork prices fell below their level prior to the first ban in January 2014.
-
 
 <<pork_prices_dk, echo=FALSE, fig=TRUE, include=FALSE, height=5, width=8>>=
 
@@ -78,10 +77,10 @@ pork_plot_dk
 \end{center}
 \end{figure}
 
-Figure \ref{fig:pork_prices_dk} shows the Danish price of pork also since January 2010. As can be seen, it is much less obvious, than in the US case, that the interventions, indicated by vertical dashed lines, should have had an effect on Danish pork prices. First, Danish pork prices had been falling since October 2013, three months before the January import ban. Secondly, the Danish pork prices actually increased from March to June and then started to fall again in July, one moth before the August embargo. These facts do not, however, rule out apriori that the Russian trade interventions did not have an effect on Danish pork prices as well. It might be the case, for example, that the Danish pork prices would not have decreased as much as they did between January and March had there been no ban. Regarding the price increase from April to June, that might be the impact of the storage subsidies and, finally, the apparently one month early price fall in July, might be purely coincidental resulting from supply and/or demand shocks unrelated to Russian trade.
+Figure \ref{fig:pork_prices_dk} shows the Danish price of pork also since January 2010. As can be seen, it is much less obvious, than in the US case, that the interventions, indicated by vertical dashed lines, should have had an effect on Danish pork prices. First, Danish pork prices had been falling since October 2013, three months before the January import ban. Secondly, the Danish pork prices actually increased from March to June and then started to fall again in July, one moth before the August embargo. These facts do not, however, rule out apriori that the Russian trade interventions did not have an effect on Danish pork prices as well. It might be the case, for example, that the Danish pork prices would not have decreased as much as they did between January and March had there been no ban. Regarding the price increase from April to June, that might be the impact of the storage subsidies and, finally, the apparently one month early price fall in July, might be purely coincidental resulting from supply and/or demand shocks unrelated to Russian trade. \hl{Would be nice with some trade data for DK also}
 
 \subsubsection*{Milk prices}
-
+Figure \ref{fig:milk_prices} illustrates the price of raw milk received by Danish farmers as well as the EU average. Clearly, the DK and EU average milk price peaked in late 2013-early 2014 and both have been falling by roughly one third since then. \hl{Is the small spike in 2015 related to the EU support schemes?} As the Russian import ban in August 2014 came at a time when price were already in free fall, it is not obvious, just by looking at the graphs, that there was a significant negative impact as we might expect. This does not mean that there was no impact, of course, only that we need more sophisticated methods to determine it. However, based on the graph we would not expect to find a large impact.
 
 <<milk_prices, echo=FALSE, fig=TRUE, include=FALSE, height=5, width=8>>=
 
@@ -99,17 +98,18 @@ milk_plot
 \end{figure}
 
 \subsection*{Statistical model of the price impacts}
+This section lays out the model framework used to quantify impacts of the Russian import bans starting in February and August 2014 on the US and DK price of pork as well as the DK price of raw milk.
 In a time series context, the classic approach to the analysis of policy interventions such as trade bans is based on the Box-Jenkins ARIMA methodology. The basic idea behind this approach is to filter out any trends and cycles through various transformations of the data and then to regress the ``pre-whitened'' time series on a set of intervention dummies \citep[see][]{Box1975, Box2011}.
 An alternative and perhaps more modern approach is based on the so called structural time series models \citep[see][]{Harvey1989, Durbin2012}. The idea behind this methodology is to split up the time series of interest into different components such as a trend, cycle, seasonal variation as well as the effect of explanatory variables, and to model each component individually.
 
 The specific model that we use to estimate the effect of Russian trade interventions on the price of dairy and pork is a slightly modified version of the ``basic structural time series model'' championed by \cite{Harvey1989}. It can be written
 \begin{eqnarray}
-y_{t} & = & \mu_{t}+\tau_{t}+\beta^{T}x_{t}+\epsilon_{t}\\
+y_{t} & = & \mu_{t}+\tau_{t}+\alpha^{T}d_{t}+\beta^{T}x_{t}+\epsilon_{t}\\
 \mu_{t} & = & \mu_{t-1}+\delta_{t-1}+u_{t}\\
 \delta_{t} & = & \delta_{t-1}+v_{t}\\
 \tau_{t} & = & -\sum_{s=1}^{S-1}\tau_{t-s}+w_{t},
 \end{eqnarray}
-where $\mu_{t}$, $\tau_{t}$ and $\beta^{T}x_{t}$ denote trend, seasonal, and regression components, respectively, and where $\epsilon_{t}$, $u_{t}$, $,v_{t}$ and $w_{t}$ are independent Gaussian error terms with constant variances $\sigma_{\epsilon}^{2}$, $\sigma_{u}^{2}$, $\sigma_{v}^{2}$ and $\sigma_{w}^{2}$. It is worth noticing that the (stochastic) trend term, $\mu_{t}$, follows a random walk with drift, where the drift term $\delta_{t}$, i.e. the slope of the trend, is also stochastic and follows its own random walk. Another feature worth noticing is that the sum of the $S$ seasonal terms, where $S=12$ in a model based on monthly data, have expectation zero.
+where $\mu_{t}$ and $\tau_{t}$ denote trend and seasonal regression components, respectively, and where $\alpha^{T}d_{t} +\beta^{T}x_{t}$ is a composite regression component. $d$ consist of two intervention dummies, $d_{1}$ and $d_{2}$ say, where $d_{1}$ shifts from zero to one in February 2014 (the beginning of the ban on EU pork) and where  $d_{2}$ shifts from zero to one in August 2014 (the beginning of the comprehensive ban on Western food goods). $x$, on the other hand is a set of predictors other than the intervention dummies. $\epsilon_{t}$, $u_{t}$, $,v_{t}$ and $w_{t}$ are independent Gaussian error terms with constant variances $\sigma_{\epsilon}^{2}$, $\sigma_{u}^{2}$, $\sigma_{v}^{2}$ and $\sigma_{w}^{2}$. It is worth noticing that the (stochastic) trend term, $\mu_{t}$, follows a random walk with drift, where the drift term $\delta_{t}$, i.e. the slope of the trend, is also stochastic and follows its own random walk. Another feature worth noticing is that the sum of the $S$ seasonal terms, where $S=12$ in a model based on monthly data, have expectation zero. 
 
 We take a bayesian approach to model estimation. The approach is based on the Markov chain Monte Carlo (MCMC) algorithm of \cite{Scott2014} which cycles through the following steps:
 
@@ -123,14 +123,14 @@ We take a bayesian approach to model estimation. The approach is based on the Ma
 
 \end{enumerate}
 
-In the third step the (Monte Carlo) distribution of the regression component parameters is obtained. A key feature of the algorithm is that it allows for inclusion of a large number of regressors. Sparcity is preserved through bayesian variable selection. In particular, a so called ``spike-and-slab'' mixture prior is imposed on the set of potential coefficients. Suppose there are $K$ such potential predictors. Let $\gamma$ be a vector of length $K$ containing zeros and ones incicating whether or not a particular predictor variable, $x_{k}$, is included in the model. The ``spike'' component of the prior distribution refers to a Bernoulli prior distribution on $\gamma$
-\[
-\gamma\sim\Pi_{k=1}^{K}\pi_{k}^{\gamma_{k}}(1-\pi_{k})^{1-\gamma_{k}},
-\]
-where we, for simplicity, assume that each variable have fifty percent chance of being included in the regression, i.e. $\pi_{k}=0.5$. Conditional on $\gamma_{k}=1$ the prior distribution of $\beta_{k}$, i.e. the ``slab'' component of the spike-and-slab prior, is assumed to be Gaussian with mean prior zero and a large variance. In summary, the spike component of the spike-and-slab prior refers the probability of a coefficient being nonzero, whereas the slab component is the diffuse prior determining the range of values which $\beta_{k}$ can likely take \citep{Varian2014}. The algorithm proceeds by drawing $\gamma$ from its prior distribution generating a list of variables to be included in the model. Next, it draws a set of prior coefficients for the included regressors and combines them with their likelihood such that the posterior distribution of $\beta$ and $\sigma_{\epsilon}^{2}$, conditional on $\gamma$, is obtained. In addition, the MCMC sampling scheme provides the posterior distribution of $\gamma$ and these marginal inclusion probabilies play an important role when model uncertainty is assessed. For further details on the MCMC algorithm and the spike-and-slab prior in particular, please consult the  \cite{Scott2014} paper and the references therein.
+In the third step the (Monte Carlo) distribution of the regression component parameters is obtained. A key feature of the algorithm is that it allows for inclusion of a large number of regressors. 
 
-\subsection*{Model results}
-Table \ref{tab:imp_est} summarizes the results from various model specifications.
+The set of control variables included vary across prices. For the US pork price they are prices of barley, fishmeal, maize, crude oil, soybean meal and wheat (all from the IMF commodity price database), as well as the US agricultural exchange rate of pork (from the USDA). Both the exchange rate and the input prices affect competitiveness of US pork. For the DK price of pork the control variables are prices of a 15 grains and feed mixes as well as the price of diesel and a wage rate. For the DK milk price the list of control variables is very similar.
+
+Sparcity is preserved through bayesian variable selection. In particular, a so called ``spike-and-slab'' mixture prior is imposed on the set of potential coefficients. For further details on the MCMC algorithm and the spike-and-slab prior in particular, see  \cite{Scott2014} and the references therein. \cite{Varian2014} offers a non-technical introduction to model selection and other big-data related issues.
+
+\subsection*{Estimation results}
+Table \ref{tab:imp_est} summarizes the impact estimates for the US and DK pork price as well as the DK price of raw milk. For each price we consider three nested models; The most general model denoted ``trend + seas + ctrl'' corresponds to the set of equations (1)-(4) above. The second most general model denoted ``trend + seas'' is similar to the first except that it does not contain any control variables, other than the intervention dummies, of course. Finally, the most basic model denoted ``level + seas'' only includes a level and a seasonal component but no trend or control variables. All price series are in logs so the coefficients to the impact dummies, when multiplied by 100, represent the approximate percentage price change associated with the ban in question (i.e. the February or August ban). 
 
 <<echo=FALSE>>=
 res = load("bsts_results.Rda")
@@ -190,7 +190,6 @@ pr.sd = cbind(results[[1]]$prediction.sd,
                results[[9]]$prediction.sd)
 @
 
-\lipsum[1]
 \begin{table}[t]
 \caption{Estimated price impacts of the Russian trade interventions}
 \label{tab:imp_est}
@@ -224,6 +223,27 @@ DK milk
 \end{center}
 \end {table}
 
+<<echo=false>>=
+imf_meat = read.csv("imf_meat.csv", sep = ";")
+puspork = imf_meat[,"PPORK"]
+avgpc_puspork = mean(abs(log(puspork[-1])-log(head(puspork,-1))))*100
+dat = read.csv("dk_pork_data.csv", sep = ";")
+pdkpork = dat[,"DKpork"]
+avgpc_pdkpork = mean(abs(log(pdkpork[-1])-log(head(pdkpork,-1))))*100
+dat = read.csv("dk_milk_data.csv", sep = ";")
+pdkmilk = dat[,"dk_raw_milk"]
+avgpc_pdkmilk = mean(abs(log(pdkmilk[-1])-log(head(pdkmilk,-1))))*100
+@
+
+The four first columns in the main table contain summary information about the marginal posterior distributions of $\alpha_{1}$ and $\alpha_{2}$, respectively, i.e. the two intervention dummy coefficients. For the US pork price the mean of the posterior distribution of $\alpha_{1}$ ranges from \Sexpr{round(m_jan[1],2)}-\Sexpr{round(m_jan[2],2)}, depending on the model formulation, which translates into a \Sexpr{round((exp(m_jan[1])-1)*100,1)}-\Sexpr{round((exp(m_jan[2])-1)*100,1)} \% price increase. However, the standard deviation of the posterior distribution is relatively large so there is, considerable uncertainty associated with the size of the effect. The posterior distribution of $\alpha_{2}$ has a mean ranging from \Sexpr{round(m_aug[1],2)} to \Sexpr{round(m_aug[3],2)} translating into a \Sexpr{round((exp(m_aug[1])-1)*(-100),1)}-\Sexpr{round((exp(m_aug[3])-1)*(-100),1)} \% price decrease, depending on the model. The posterior standard deviation is somewhat smaller in this case but the uncertainty of the effect size is still considerable. To put these effect sizes into perspective, the average monthly (absolute) change in the price of US pork is \Sexpr{round(avgpc_puspork,1)} percent, using a log approximation. 
+
+Moving down the rows of the table we see that the estimated impact on Danish pork prices of the bans are smaller than the corresponding impacts on US prices. For the February ban, mean impact estimates range from \Sexpr{round(m_jan[5],2)} to \Sexpr{round(m_jan[6],2)} with a similar range for the August ban. In comparison, the average monthly (absolute) change in the price of DK pork is \Sexpr{round(avgpc_pdkpork,1)} percent.
+
+The last section of the table summarises the estimated impact of the August ban on Danisk raw milk prices. It shows that the mean estimated effect ranges from \Sexpr{round(m_aug[8],2)} to \Sexpr{round(m_aug[9],2)} with corresponding standard deviations of the impact estimates in the range \Sexpr{round(sd_aug[8],2)}-\Sexpr{round(sd_aug[9],2)}. Danish raw milk prices changed by \Sexpr{round(avgpc_pdkmilk,1)} percent on average month-to-month in the period considered.
+
+Finally, the last to columns of the table contain information on the fit of the models. For all three prices, it is the simplest of the models which lead to residuals and one step ahead forecast errors with the kowest variance. However, given that the mean impact estimates are very similar across the different specifications and that the impact distrubutions are highly overlapping, our conclusions regarding the likely impact of the bans are robust to the specific choice of model. It is worth mentioning that we obtain similar estimates for the ban impacts when we use standard Arima models to fit the price data.
+
+In conclusion, there is some empricical evidence that February and August bans affected prices of pork and milk. The strongest estimated impacts was on US pork prices, especially in connection with the August ban. Danish pork and milk prices seem to have been less affected by the Russian interventions. The statistical analysis point to small negative price impact in the order of 1-5 percent. 
 
 \bibliographystyle{chicago}
 \bibliography{russia_imp_ban}
